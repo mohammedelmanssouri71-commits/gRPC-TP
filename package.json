@@ -1,0 +1,21 @@
+{
+  "name": "tp-grpc",
+  "version": "1.0.0",
+  "description": "```\r   grpc-tp/\r   ├── proto/\r   │   ├── user.proto          ← Contrat du UserService\r   │   ├── movie.proto         ← Contrat du MovieService\r   │   └── review.proto        ← Contrat du ReviewService\r   │\r   ├── user-service/\r   │   ├── package.json\r   │   └── server.js           ← Serveur gRPC port 50051\r   │\r   ├── movie-service/\r   │   ├── package.json\r   │   └── server.js           ← Serveur gRPC port 50052\r   │\r   └── review-service/\r       ├── package.json\r       ├── server.js           ← Serveur gRPC (50053) + API REST (3000)\r       └── test-client.js      ← Client de test gRPC\r   ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohammedelmanssouri71-commits/gRPC-TP.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mohammedelmanssouri71-commits/gRPC-TP/issues"
+  },
+  "homepage": "https://github.com/mohammedelmanssouri71-commits/gRPC-TP#readme"
+}

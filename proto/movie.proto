@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package movie;
+
+// Définition du service MovieService
+service MovieService {
+  rpc GetMovie (MovieRequest) returns (MovieResponse);
+}
+
+// Message de requête : on envoie un id
+message MovieRequest {
+  int32 id = 1;
+}
+
+// Message de réponse : on reçoit id + title
+message MovieResponse {
+  int32 id = 1;
+  string title = 2;
+}

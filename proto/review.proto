@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package review;
+
+// Définition du service ReviewService
+service ReviewService {
+  rpc CreateReview (ReviewRequest) returns (ReviewResponse);
+}
+
+// Message de requête : on envoie userId, movieId et un commentaire
+message ReviewRequest {
+  int32 userId = 1;
+  int32 movieId = 2;
+  string comment = 3;
+}
+
+// Message de réponse : un simple message de confirmation
+message ReviewResponse {
+  string message = 1;
+}

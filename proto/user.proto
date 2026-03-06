@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package user;
+
+// Définition du service UserService
+// Ce fichier est le "contrat" entre le client et le serveur
+service UserService {
+  rpc GetUser (UserRequest) returns (UserResponse);
+}
+
+// Message de requête : on envoie un id
+message UserRequest {
+  int32 id = 1;
+}
+
+// Message de réponse : on reçoit id + name
+message UserResponse {
+  int32 id = 1;
+  string name = 2;
+}
