@@ -269,3 +269,45 @@
   `@grpc/proto-loader` charge le fichier `.proto` directement au runtime.
   C'est plus simple pour le développement mais moins performant en production
   que le code généré.
+
+---
+
+## Nouveau : Client React + Auth JWT
+
+Le projet inclut maintenant :
+
+- Un **client React** dans `client/` (CSS classique, sans framework UI).
+- Une authentification **JWT** dans l'`api-gateway`.
+
+### 1) Lancer le front React
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+Le front est disponible sur `http://localhost:5173`.
+
+### 2) Authentification JWT (API Gateway)
+
+Le gateway expose :
+
+- `POST /auth/login` : retourne un token JWT.
+- `GET /auth/me` : retourne l'utilisateur authentifié.
+- Toutes les routes `/api/*` nécessitent un header `Authorization: Bearer <token>`.
+
+Identifiants de démo par défaut :
+
+- `username: admin`
+- `password: admin123`
+
+Exemple :
+
+```bash
+curl -X POST http://localhost:8080/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"username":"admin","password":"admin123"}'
+```
+
+Ensuite utiliser `token` reçu dans les appels `/api/users`, `/api/movies`, `/api/reviews`.
