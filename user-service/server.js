@@ -18,8 +18,10 @@ mongoose.connect('mongodb+srv://simoxx230_db_user:HtyS9IT43VWG2sBU@cluster0.bnxt
 
 // ─── Schéma et modèle ─────────────────────────────────────────
 const UserSchema = new mongoose.Schema({
-  id:   { type: Number, unique: true },
-  name: { type: String, required: true }
+  id:       { type: Number, unique: true },
+  name:     { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true }
 })
 const User = mongoose.model('User', UserSchema)
 
@@ -28,9 +30,9 @@ async function seedUsers() {
   const count = await User.countDocuments()
   if (count === 0) {
     await User.insertMany([
-      { id: 1, name: 'Alice' },
-      { id: 2, name: 'Bob' },
-      { id: 3, name: 'Charlie' }
+      { id: 1, name: 'Alice', username: 'alice', password: 'alice123' },
+      { id: 2, name: 'Bob', username: 'bob', password: 'bob123' },
+      { id: 3, name: 'Charlie', username: 'charlie', password: 'charlie123' }
     ])
     console.log('[UserService] Base de données initialisée')
   }
@@ -54,7 +56,7 @@ async function GetUser(call, callback) {
       message: `Utilisateur id=${call.request.id} introuvable`
     })
   }
-  callback(null, { id: user.id, name: user.name })
+  callback(null, { id: user.id, name: user.name, username: user.username, password: user.password })
 }
 
 // ─── Démarrage serveur gRPC ───────────────────────────────────
@@ -99,9 +101,15 @@ app.post('/users', async (req, res) => {
   try {
     const last = await User.findOne().sort({ id: -1 })
     const newId = last ? last.id + 1 : 1
-    const user = new User({ id: newId, name: req.body.name })
+    const { name, username, password } = req.body
+
+    if (!name || !username || !password) {
+      return res.status(400).json({ error: 'name, username et password sont requis' })
+    }
+
+    const user = new User({ id: newId, name, username, password })
     await user.save()
-    res.status(201).json({ id: user.id, name: user.name })
+    res.status(201).json({ id: user.id, name: user.name, username: user.username, password: user.password })
   } catch (err) {
     res.status(500).json({ error: err.message })
   }
