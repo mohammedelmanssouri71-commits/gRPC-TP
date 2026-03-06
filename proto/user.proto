@@ -17,4 +17,6 @@ message UserRequest {
 message UserResponse {
   int32 id = 1;
   string name = 2;
+  string username = 3;
+  string password = 4;
 }
